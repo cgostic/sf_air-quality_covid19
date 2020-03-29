@@ -2,10 +2,14 @@ import geopandas as gpd
 import pandas as pd
 import altair as alt
 from shapely import wkt
+import time
+import ipywidgets as widgets
+from ipywidgets import interact
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
+import dash_gif_component as Gif
 from dash.dependencies import Input, Output
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -20,158 +24,246 @@ app.title = 'Air Quality'
 ###################################################################################################
 # Load the data
 ####################################################################################################
+pollutants = ['NOX', 'BC', 'OZONE', 'PM25HR', 'NO2']
+
 # Load geojson to dataframe object
 shape_gdf = gpd.read_file('data/raw/Bay_Area_Counties.geojson')
 
 # Load sites data
 sites = pd.read_csv('data/wrangled/sites_data.csv')
-sites_gdf = gpd.GeoDataFrame(sites, geometry = gpd.points_from_xy(sites.longitude, sites.latitude))
+sites_gdf = gpd.GeoDataFrame(sites, geometry=gpd.points_from_xy(sites.longitude,
+                                                                sites.latitude))
 
-# Load interpolated PM 2.5 data
-data = pd.read_csv('data/wrangled/pm25_interpolated.csv')
-data['geometry'] = data['geometry'].apply(wkt.loads)
-pm25_gdf = gpd.GeoDataFrame(data, geometry = 'geometry')
+# Load line chart data
+lc_OZONE = pd.read_csv('data/wrangled/OZONE_line_plot.csv')
+lc_BC = pd.read_csv('data/wrangled/BC_line_plot.csv')
+lc_NOX = pd.read_csv('data/wrangled/NOX_line_plot.csv')
+lc_PM25HR = pd.read_csv('data/wrangled/PM25HR_line_plot.csv')
+lc_NO2 = pd.read_csv('data/wrangled/NO2_line_plot.csv')
 
-# Rename data columns to integers for callback
-dat_cols = list(pm25_gdf['date'].unique())
+lc_dict = {'OZONE': lc_OZONE, 
+           'NOX': lc_NOX, 
+           'BC': lc_BC, 
+           'PM25HR': lc_PM25HR,
+           'NO2': lc_NO2}
+param_title = {'OZONE': 'Ozone', 
+               'NOX': 'NOx', 
+               'PM25HR': 'PM 2.5', 
+               'BC': 'Black Carbon',
+               'NO2': 'NO2'}
+units_dict = {'OZONE': 'ppm', 
+              'NOX': 'ppm', 
+              'PM25HR': 'µg/m3', 
+              'BC': 'µg/m3',
+              'NO2': 'ppm'}
 
 # Create base-map
 base_map = (alt.Chart(shape_gdf).mark_geoshape(
                 stroke='black',
-                fill = None
+                fill = 'lightgray'
                 ).encode())
 
-# Plot dimensions
-h_sites, w_sites = 500, 500
-h_pm25, w_pm25 = 800, 800
+
 
 #####################################################################################################
 # Make the plots
 #####################################################################################################
-def make_plot(date = 0):
-#     def plot_sensors(base_map):
-#         """
-#         Returns Altair plot of point locations in gdf overlayed
-#         on base map.
-#         """
-#         sites_map = (alt.Chart(sites_gdf)
-#                 .mark_geoshape(color = 'red', 
-#                                 size = .25)
-#                 .encode(tooltip = ['name']))
-#         return (base_map + sites_map).properties(title = title,
-#                                                 height = h_sites,
-#                                                 width = w_sites)
-    def plot_pm25(date):
-        plot_df = (pm25_gdf.query('date_int =='+str(date))
-            .reset_index(drop = True))
-        interpolated_plot = (alt.Chart(plot_df)
-                        .mark_geoshape()
-                        .encode(fill = alt.Color('pm25', 
-                                        scale = alt.Scale(domain = [0,16]),
-                                        title = 'µg/m3'),
-                                tooltip = [alt.Tooltip('pm25', 
-                                                        title = 'PM 2.5 (µg/m3)', 
-                                                        format = '0.5')]
-                                ))
-        return (interpolated_plot + base_map).properties(
-            title = "Bay Area Avg. PM 2.5 (µg/m3): "+plot_df.loc[0,'date'],
-            height = h_pm25,
-            width = w_pm25)
-    return plot_pm25(date)
+
+def plot_sensors():
+    """
+    Returns Altair plot of point locations in gdf overlayed
+    on base map.
+    """
+    sites_map = (alt.Chart(sites_gdf)
+             .mark_geoshape(color = 'red', 
+                            size = .25)
+             .encode(tooltip = ['name']))
+    return ((base_map + sites_map).properties(title = "Sensor Locations",
+                                             height = 450,
+                                             width = 500)
+                                             .configure(background='#cae1ff')
+                                             .configure_title(fontSize = 24))
+
+def plot_line(param='NOX'):
+    lp = (alt.Chart(lc_dict[param]).mark_line(size=1)
+                .encode(
+                    x=alt.X('date:T', title='',axis = alt.Axis(labelFontSize = 13)),
+                    y=alt.Y(param, 
+                            title = '{} ({})'.format(param_title[param],
+                                                units_dict[param]),
+                            axis = alt.Axis(labelFontSize = 16,
+                            titleFontSize = 20)),
+                    color=alt.Color('name:N', 
+                                    title = 'Station'),
+                    tooltip=['name:N'])
+                .properties(height = 300, 
+                            width = 1100, 
+                            title = 'Daily average {} concentration per station'.format(param_title[param])))
+    pre_line = (alt.Chart(lc_dict[param])
+        .mark_line(size=3, color='black')
+        .encode(x='date:T',y='Pre-Shelter in place mean:Q'))
+    post_line = (alt.Chart(lc_dict[param])
+        .mark_line(size=3, color='black')
+        .encode(x='date:T',y='Post-Shelter in place mean:Q'))
+    text = alt.Chart().mark_text(dx=340,
+                                dy=-130,
+                                size=18,
+                                text='Black = Mean value Pre- and Post- Shelter in Place').encode()
+    return ((lp + pre_line + post_line + text)
+                .configure_title(fontSize = 24)
+                .configure_legend(titleFontSize=16))
+
+def render_gif(param='NOX'):
+    gp = Gif.GifPlayer(
+            gif='assets/'+param+'.gif',
+            still='assets/'+param+'_15.png'
+                 )
+    return gp
+
+
+##########################################################################################
+# APP LAYOUT
+##########################################################################################
 
 app.layout = html.Div([
-        # First column        
-        html.Div(
-            children=[
-                html.Div(className = "app-logo", children = [
-                    html.Img(src='https://i.ibb.co/F78bQB2/logo-2.png', width = 200)
-                ]),
-                html.Div(className = "app-side-panel-intro", children = [
-                    html.H5('Guide your observance of the famous squirrels of Central Park, NY')
-                ]),
-                dcc.Markdown(className = "app-panel-list", children = [
-                    """
-                    - Hover over any chart value to see details
-                    - Click a region on any chart to highlight across all charts
-                    - Shift + click to select multiple regions at once
-                    """
-                ]),
-                html.Div(className = "app-behavior-intro", children = [
-                    html.H5('Select a Behavior to'),
-                    html.H5('Display:')
-                    ]),
-                html.Div(className = "app-behavior-dd", children = [
-                    dcc.Dropdown(
-                        id='dd-chart',
-                        options=[
-                            {'label': '2020-01-01', 'value': '2020-01-01'},
-                            {'label': '2020-01-15', 'value': '2020-01-15'},
-                            {'label': '2020-02-01', 'value': '2020-02-01'},
-                            {'label': '2020-02-15', 'value': '2020-02-15'},
-                            {'label': '2020-03-01', 'value': '2020-03-01'},
-                                ],
-                        value = '2020-01-01',
-                        clearable = False,
-                        style=dict(width='95%',
-                                    verticalAlign="middle",
-                                    fontSize = 18
+    html.Div(className = "app-graphs",
+            children = [
+        # Row 1
+        html.Div(className = "row",
+            children = [
+                # Writing!
+                html.Div(className = 'writing',
+                        children = [
+                            html.Div(children=[
+                                html.H2("How impactful is 'Shelter in Place' on Air Quality?"),
+                                html.H2(""),
+                                html.P(
+                                    """On March 17th, San Francisco instituted a Shelter in Place
+                                    ordinance in response to COVID-19. How will this drastic shift in
+                                    human behavior impact the city's air quality? My guess is: for the
+                                    better."""),
+                                html.P(
+                                    """Choose a Pollutant from the dropdown below! Options include Nitrogen Dioxide,
+                                    Ozone, PM 2.5, NOx and Black Carbon, all of which human acitivities significantly 
+                                    contribute to (mostly through automobiles)."""),
+                                html.P(
+                                    """The locations of air quality sensors and a time lapse of pollutant 
+                                    levels from March 1st - present day are viewable by switching between 
+                                    tabs to the right."""),
+                                html.P(
+                                    """The change in mean pollutant values from the month leading up 
+                                    to the shelter in place ordinance (Feb 15th - March 16th) to the
+                                    period after the shelter in place ordinance is displayed in the
+                                    line-plot below.""")]),
+                            html.Div(
+                                className = "app-dd", 
+                                children = [
+                                    html.H3("Choose a Pollutant:"),
+                                    dcc.Dropdown(
+                                        id='dd-param',
+                                        options=[
+                                            {'label': 'Ozone', 'value': 'OZONE'},
+                                            {'label': 'NOx', 'value': 'NOX'},
+                                            {'label': 'PM 2.5', 'value': 'PM25HR'},
+                                            {'label': 'Black Carbon', 'value': 'BC'},
+                                            {'label': 'Nitrogen Dioxide', 'value': 'NO2'}
+                                                ],
+                                        value = 'NO2',
+                                        clearable = False,
+                                        style=dict(width='67%',
+                                                    verticalAlign="middle",
+                                                    fontSize = 18
+                                                    )
+                                    ),
+                            ]),
+                        html.P(
+                                """
+                                Data is retrieved daily from the CA air resources board
+                                site (https://www.arb.ca.gov), and a linear interpolation
+                                is calculated over the region bounded by the air quality
+                                sensors in the Bay Area to create the time lapse.""")
+                        ],
+                    style={'width':'50%'}),
+                # Tabs
+                html.Div(
+                    children=[
+                        dcc.Tabs(
+                                id='tabs',
+                                value='main',
+                                children=[
+                                    dcc.Tab(
+                                        label='Sensor Location',
+                                        value='main',
+                                        children=[
+                                            html.Div(html.Iframe(
+                                                sandbox='allow-scripts',
+                                                id='sensor-plot',
+                                                width='575',
+                                                height='515',
+                                                # Call plot function
+                                                srcDoc = plot_sensors().to_html()
+                                            ))
+                                        ],
+                                    ),
+                                    dcc.Tab(
+                                        label='Air Quality Time Series',
+                                        value='gif',
+                                        children=[
+                                            html.Div(id='gif-player',
+                                            children = [
+                                                render_gif()
+                                            ])
+                                        ]
                                     )
+                                ]
                             )
-                    ]),
-                html.Div(className = "app-behavior-arrow", children = [
-                    html.Img(src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Simpleicons_Interface_arrow-pointing-to-right.svg", width = 50)
-                ])
-        ], style={'width': '15%', 'display': 'inline-block', 'vertical-align': 'top'}),
-        # 2nd column
-        html.Div(className = 'app-graphs',
-                children = [
-                    html.Iframe(
+                        ],
+                    style={'width':'35%'}
+                    )
+            ]
+        ),
+        # Line Plot           
+        html.Div(className = "row",
+                    children = [html.Iframe(
                         sandbox='allow-scripts',
-                        id='plot',
-                        height='955',
-                        width='1400',
-                        style={'border-width': '0px'},
+                        id='line-plot',
+                        height='400',
+                        width='1425',
                         # Call plot function
-                        srcDoc = make_plot().to_html()
-                        ),
-                    html.Div([
-                        dcc.Slider(
-                        id='year-slider',
-                        marks = {i: dat_cols[i] for i in range(0,len(dat_cols), 5)},
-                        min=0,
-                        max=len(dat_cols),
-                        step=1,
-                        value=0,
-                        updatemode='drag',
-                    ),
-                ], style={'width':'80%'})
-
-                        ], style={'width': '84%', 'display': 'inline-block'}),                 
-        dcc.Markdown(className = "app-footer", children = [
-                    """
-                    #### Visit the [Github Repository](https://github.com/cgostic/squirrel_app_CG)  
-                    #### Sources: 
-                    - [The Central Park Squirrel Census](https://www.thesquirrelcensus.com/)
-                    - [NYC OpenData](https://data.cityofnewyork.us/Environment/2018-Central-Park-Squirrel-Census-Squirrel-Data/vfnx-vebw) 
-                    - [Squirrel Image,](https://www.trzcacak.rs/myfile/full/50-509839_squirrel-black-and-white-free-squirrel-clipart-cartoon.png) [ Arrow Image](https://commons.wikimedia.org/wiki/File:Simpleicons_Interface_arrow-pointing-to-right.svg)
-                    
-                    #### Contributions:  
-                    - The original version of this app was created with Roc Zhang and Lori Feng as a group project in UBC's Master of Data Science Program. The original app can be viewed [here](https://dsci-532-group203-milestone2.herokuapp.com/), and the original Github repository can be viewed [here](https://github.com/UBC-MDS/DSCI-532_group-203_Lab1-2).
-                    """
-                ])
-    ])
+                        srcDoc = plot_line().to_html()
+                )]
+        ),
+        # Row 3
+        html.Div(className='footer',
+        children=[
+            dcc.Markdown(
+            """
+            ###### Author: Cari Gostic" 
+            ###### View the project Github Page [here]()
+            # """)])
+        ]
+    )
+])
 
 @app.callback(
-    dash.dependencies.Output('plot', 'srcDoc'),
-              [dash.dependencies.Input('year-slider', 'value')])
-def update_plot(date_int):
+    dash.dependencies.Output('line-plot', 'srcDoc'),
+              [dash.dependencies.Input('dd-param', 'value')])
+def update_plot(param):
     '''
-    Takes in a date and calls make_plot to update our Altair figure
+    Takes in a date and calls plot_line() to update our Altair figure
     '''
-    updated_plot = make_plot(date_int).to_html()
+    updated_plot = plot_line(param).to_html()
     return updated_plot
 
-
+@app.callback(
+    dash.dependencies.Output('gif-player', 'children'),
+              [dash.dependencies.Input('dd-param', 'value')])
+def update_gif(param):
+    '''
+    Takes in a date and calls plot_line() to update our Altair figure
+    '''
+    updated_path = render_gif(param)
+    return updated_path
 
 if __name__ == '__main__':
     app.run_server(debug=True)

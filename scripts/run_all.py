@@ -23,6 +23,16 @@ The script exports a .png per day per pollutant and one .gif per
 pollutant to the /assets folder, a sites_data.csv, *_interpolated.csv
 per pollutant, and *_line.csv per pollutant to the 
 data/wrangled folder.
+
+Data sources:
+
+- https://data.sfgov.org/Geographic-Locations-and-Boundaries/Bay-Area-Counties/s9wg-vcph
+- https://www.arb.ca.gov
+
+Code resources
+
+- https://gis.stackexchange.com/questions/314949/creating-square-buffers-around-points-using-shapely
+- http://geologyandpython.com/ml-interpolation-method.html
 """
 
 import geopandas as gpd
@@ -37,6 +47,7 @@ import requests
 import io
 import imageio
 import os
+import shutil
 from datetime import date
 
 # Load site information
@@ -55,24 +66,28 @@ sites_wr.to_csv('../data/wrangled/sites_data.csv')
 sites_wr['site'] = sites_wr['site'].astype('int').astype('str')
 
 # Units and pollutant mapping
-param_title = {'OZONE': 'Ozone', 'NOX': 'NOx', 'PM25HR': 'PM 2.5', 'BC': 'Black Carbon'}
-units_dict = {'OZONE': 'ppm', 'NOX': 'ppm', 'PM25HR': 'µg/m3', 'BC': 'µg/m3'}
+param_title = {'OZONE': 'Ozone', 'NOX': 'NOx', 'PM25HR': 'PM 2.5', 'BC': 'Black Carbon', 'NO2':'NO2'}
+units_dict = {'OZONE': 'ppm', 'NOX': 'ppm', 'PM25HR': 'µg/m3', 'BC': 'µg/m3', 'NO2':'NO2'}
 
 # Today's date
 today = date.today()
 
 # Available pollutants
-pollutants = ['PM25HR', 'OZONE', 'BC', 'NOX']
+pollutants = ['PM25HR', 'OZONE', 'BC', 'NOX', 'NO2']
+
+# Remove existing image files
+for param in pollutants:
+    os.system('rm -rf ../assets/img/'+param+'/*')
 
 for param in pollutants:
     # Set parameters
     first_date = '2020-2-15' # yyyy-m-d 
-    units = {'OZONE': '007', 'BC': '001', 'NOX': '007', 'PM25HR': '001'}
+    units = {'OZONE': '007', 'BC': '001', 'NOX': '007', 'PM25HR': '001', 'NO2':'007'}
     year = '2020'
     mon = str(today.month)
     day = str(today.day)
     basin = 'SFB-San+Francisco+Bay'
-    rows = {'OZONE': '20', 'BC': '6', 'NOX': '18', 'PM25HR': '17'}
+    rows = {'OZONE': '20', 'BC': '6', 'NOX': '18', 'PM25HR': '17', 'NO2': '18'}
     fname = param+'_'+year+'-'+mon+'-'+day
 
     url = 'https://www.arb.ca.gov/aqmis2/display.php?sitelist=All&\
@@ -123,7 +138,7 @@ rows='+rows[param]
     aq_gdf = pd.merge(gdf_sites, aq_da, how = 'inner', on = 'site')
 
     # Interpolate AQ values across a grid bounded by sensor locations
-
+    # Method from http://geologyandpython.com/ml-interpolation-method.html
     # Define size of pixels in grid (units of lat/long degrees)
     pixel = .05
     # Determine extent of observations and create pixel_size-spaced arrays
@@ -159,6 +174,7 @@ rows='+rows[param]
                                             interp_df.lat))
 
     # Buffer each grid point to a larger pixel
+    # Method from https://gis.stackexchange.com/questions/314949/creating-square-buffers-around-points-using-shapely
     interp_buffer = interp_gdf.copy()
     buffer = interp_buffer.buffer(0.04)
     envelope = buffer.envelope
@@ -260,6 +276,10 @@ rows='+rows[param]
         for filename in filenames:
             image = imageio.imread(filename)
             writer.append_data(image)
+    # Move all but still (first in series) to img folder
+    for png in filenames:
+        if png != '../assets/'+param+'_15.png':
+            shutil.move(png, '../assets/img/'+param)
 print('All finished!!!')
 
 
