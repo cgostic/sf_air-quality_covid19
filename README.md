@@ -1,13 +1,38 @@
 # sf_air-quality_covid19
 
-Monitoring air quality in the San Francisco Bay Area throughout the COVID-19 pandemic and shelter-in-place ordinance.
+### Monitoring air quality in the San Francisco Bay Area throughout the COVID-19 pandemic and shelter-in-place ordinance.
 
 ### View the [SF Bay Air Quality App]()
 
-The purpose of the app is to monitor changes in air quality in the San Franciso Bay area over the progression of the city's 
-shelter in place ordinance in repsonse to COVID-19.
+On March 17th, San Francisco instituted a Shelter in Place ordinance in response to COVID-19. How will this drastic shift in
+human behavior impact the city's air quality? My guess is: for the better.
 
-The `scripts/runn_all.py` script retrives data from the CA air resources board site (https://www.arb.ca.gov) for each of 4 pollutants: 
+The app created through this repository displays a time lapse of concentrations of common pollutants that human activities contribute to through automobiles and industrial processes. These include Nitrogen Dioxide, Ozone, PM 2.5, NOx and Black Carbon.
+                            
+
+### Usage
+
+To run the app locally:
+
+- Download/clone this repository
+- Navigate to this repository via the command line
+- Run the following in the command line:
+
+```
+python app.py
+```
+
+To create/update the .gif's locally:
+
+- Download/clone this repository
+- Navigate to the **scripts folder** of this repository via the command line
+- Run the following in the command line:
+
+```
+python run_all.py
+```
+
+The `scripts/run_all.py` script retrives data from the CA air resources board site (https://www.arb.ca.gov) for each of 4 pollutants: 
 NO2 [NO2], Black Carbon [BC], PM 2.5 [PM25HR], Ozone [OZONE] and NOx [NOX]. The script performs a linear interpolation over the region
 bounded by the air quality sensors in the Bay Area.
 
@@ -27,3 +52,15 @@ Outputs:
 
 In the `scripts` folder, there is also a [vignette]() that walks through the process of data wrangling and spatial interpolation
 for a single pollutant (PM 2.5) that is executed to create the outputs seen on the app.
+
+
+#### Data Sources
+
+- [CA Air Resources Board hourly data](https://www.arb.ca.gov/aqmis2/aqdselect.php?tab=hourly)
+- [Data SF Bay area counties shapefile](https://data.sfgov.org/Geographic-Locations-and-Boundaries/Bay-Area-Counties/s9wg-vcph)
+
+#### Coding Resources
+
+- [geologyandpython.com (geographic interpolation method)](http://geologyandpython.com/ml-interpolation-method.html)
+- [GIS Stack Exchange: creating square buffers around points using shapely](https://gis.stackexchange.com/questions/314949/creating-square-buffers-around-points-using-shapely)
+
