@@ -2,7 +2,7 @@
 
 ### Monitoring air quality in the San Francisco Bay Area throughout the COVID-19 pandemic and shelter-in-place ordinance.
 
-### View the [SF Bay Air Quality App]()
+### View the [SF Bay Air Quality App](https://sf-aq-covid19.herokuapp.com/)
 
 On March 17th, San Francisco instituted a Shelter in Place ordinance in response to COVID-19. How will this drastic shift in
 human behavior impact the city's air quality? My guess is: for the better.
@@ -50,7 +50,7 @@ Outputs:
 
 ### Vignette
 
-In the `scripts` folder, there is also a [vignette]() that walks through the process of data wrangling and spatial interpolation
+In the `scripts` folder, there is also a [vignette](https://github.com/cgostic/sf_air-quality_covid19/blob/master/scripts/interpolate_pm25_vignette.ipynb) that walks through the process of data wrangling and spatial interpolation
 for a single pollutant (PM 2.5) that is executed to create the outputs seen on the app.
 
 
