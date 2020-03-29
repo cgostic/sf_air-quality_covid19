@@ -1,10 +1,6 @@
 import geopandas as gpd
 import pandas as pd
 import altair as alt
-from shapely import wkt
-import time
-import ipywidgets as widgets
-from ipywidgets import interact
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
