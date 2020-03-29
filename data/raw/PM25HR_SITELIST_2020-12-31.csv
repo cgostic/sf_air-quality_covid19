@@ -1,0 +1,30 @@
+basin,cnty_abbr,name,prelim_yn,county_name,site,state,latitude,longitude,aqs_id,qa_id,district,met_id,elevation,address,city,zip_code,pm25hourly2020obs 
+SFB,ALA,Berkeley-Aquatic Park                   ,Y,Alameda,3828,CA,37.864730000000002,-122.3027,060010013,07436,BA ,,3,Aquatic Park                                                ,Berkeley                        ,94710,2014 
+SFB,ALA,Livermore-793 Rincon Avenue,Y,Alameda,3490,CA,37.6875,-121.7842,060010007,60344,BA,LVK01,138,793 Rincon Avenue,Livermore                       ,94550,1972 
+SFB,ALA,Oakland-9925 International Blvd,Y,Alameda,3247,CA,37.74306,-122.16994,060010009,60347,BA,OAK05,11,9925 International Blvd,Oakland                         ,94607,2034 
+SFB,ALA,Oakland-Laney College                   ,Y,Alameda,3803,CA,37.793619999999997,-122.26338,060010012,60351,BA,,4,Laney College Eighth St parking lot Aisle J                 ,Oakland                         ,94607,2029 
+SFB,ALA,Oakland-West,Y,Alameda,3742,CA,37.814799999999998,-122.28236,060010011,60349,BA,,4,1100 21st Street,Oakland                         ,94607,2029 
+SFB,ALA,Pleasanton-Owens Ct                     ,Y,Alameda,3840,CA,37.701219999999999,-121.90302,060010015,,BA ,,101,Owens Ct.                                                   ,Pleasanton                      ,94588,2031 
+SFB,CC,Concord-2956-A Treat Blvd,Y,Contra Costa,2831,CA,37.936,-122.0262,060130002,07448,BA,CCR01,28,2956-A Treat Blvd,Concord                         ,94518,1944 
+SFB,CC,San Pablo-Rumrill Blvd,Y,Contra Costa,3668,CA,37.9604,-122.35684999999999,060131004,07447,BA,,11,1865D Rumrill Blvd,San Pablo                       ,94806,1920 
+SFB,MRN,San Rafael,Y,Marin,2622,CA,37.972299999999997,-122.52011,060410001,21451,BA,SRF01,3,534 4th Street,San Rafael                      ,94901,1959 
+SFB,NAP,Napa-Valley College,Y,Napa,3837,CA,38.278849999999998,-122.27502,060550004,,BA,,10,Magnolia and Route 221; Napa,Napa                            ,94558,2016 
+SFB,SF,San Francisco-Arkansas Street,Y,San Francisco,2373,CA,37.765949999999997,-122.39901999999999,060750005,90306,BA,SFO02,5,10 Arkansas Street,San Francisco,94107,2036 
+SFB,SM,Redwood City,Y,San Mateo,2125,CA,37.482930000000003,-122.20348,060811001,41541,BA,RWD01,4,897 Barron Avenue,Redwood City                    ,94063,2017 
+SFB,SCL,Gilroy-9th Street,Y,Santa Clara,2320,CA,36.999580000000002,-121.57465999999999,060850002,43389,BA,GIL01,63,9th and Princeville,Gilroy,95020,1941 
+SFB,SCL,San Jose-Jackson Street,Y,Santa Clara,3661,CA,37.348488000000003,-121.894936,060850005,43383,BA,,27,156B Jackson Street,San Jose                        ,95112,1998 
+SFB,SCL,San Jose-Knox Avenue                    ,Y,Santa Clara,3810,CA,37.338202000000003,-121.849892,060850006,43385,BA,,31,1007 Knox Avenue                                            ,San Jose                        ,95122,1978 
+SFB,SOL,Vallejo-304 Tuolumne Street,Y,Solano,2410,CA,38.102510000000002,-122.238,060950004,48879,BA,VAL01,6,304 Tuolumne Street,Vallejo,94590,2029 
+SFB,SON,Sebastopol-103 Morris Street            ,Y,Sonoma,3804,CA,38.403765,-122.81829399999999,060970004,49891,BA,,23,103 Morris Street                                           ,Sebastopol                      ,95472,1955
+ 
+ Quality Flag Definition 
+0, Valid observation 
+1, The data supplier marked the observation as suspect - but it is still valid 
+2, The automated qa routine judged the observation questionable and invalid 
+3, The automated qa routine judged the observation invalid  
+4, The data supplier flagged the observation invalid  
+5, The observation was flagged invalid manually  
+
+Data extracted from mrgd database: 
+March 26, 2020 at 10:27:35
+  

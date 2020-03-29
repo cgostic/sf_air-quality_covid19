@@ -1,0 +1,105 @@
+2020-03-27 12:30:09,890 [14081] DEBUG    root:77: [JupyterRequire] Loading Jupyter Require extension.
+2020-03-27 12:30:09,890 [14081] DEBUG    root:95: [JupyterRequire] Initializing comms.
+2020-03-27 12:30:09,890 [14081] INFO     root:204: [JupyterRequire] Initializing comms.
+2020-03-27 12:31:30,511 [14253] DEBUG    root:77: [JupyterRequire] Loading Jupyter Require extension.
+2020-03-27 12:31:30,511 [14253] DEBUG    root:95: [JupyterRequire] Initializing comms.
+2020-03-27 12:31:30,511 [14253] INFO     root:204: [JupyterRequire] Initializing comms.
+2020-03-27 12:31:31,755 [14253] DEBUG    shapely.geos:32: [JupyterRequire] Trying `CDLL(/home/cari/anaconda3/lib/libgeos_c.so.1)`
+2020-03-27 12:31:31,759 [14253] DEBUG    shapely.geos:49: [JupyterRequire] Library path: '/home/cari/anaconda3/lib/libgeos_c.so.1'
+2020-03-27 12:31:31,759 [14253] DEBUG    shapely.geos:50: [JupyterRequire] DLL: <CDLL '/home/cari/anaconda3/lib/libgeos_c.so.1', handle 5599195fff70 at 0x7fbbe9883450>
+2020-03-27 12:31:31,766 [14253] DEBUG    shapely.geos:32: [JupyterRequire] Trying `CDLL(libc.so.6)`
+2020-03-27 12:31:31,766 [14253] DEBUG    shapely.geos:49: [JupyterRequire] Library path: 'libc.so.6'
+2020-03-27 12:31:31,766 [14253] DEBUG    shapely.geos:50: [JupyterRequire] DLL: <CDLL 'libc.so.6', handle 7fbbf0c454f0 at 0x7fbbc1fa9c50>
+2020-03-27 12:31:31,876 [14253] DEBUG    fiona.env:224: [JupyterRequire] Entering env context: <fiona.env.Env object at 0x7fbbb8b4d490>
+2020-03-27 12:31:31,876 [14253] DEBUG    fiona.env:226: [JupyterRequire] Starting outermost env
+2020-03-27 12:31:31,876 [14253] DEBUG    fiona.env:276: [JupyterRequire] No GDAL environment exists
+2020-03-27 12:31:31,876 [14253] DEBUG    fiona.env:280: [JupyterRequire] New GDAL environment <fiona._env.GDALEnv object at 0x7fbbc1d8cbd0> created
+2020-03-27 12:31:31,876 [14253] DEBUG    fiona._env:281: [JupyterRequire] Logging error handler pushed.
+2020-03-27 12:31:31,878 [14253] DEBUG    fiona._env:281: [JupyterRequire] All drivers registered.
+2020-03-27 12:31:31,878 [14253] DEBUG    fiona._env:281: [JupyterRequire] GDAL_DATA found in environment: '/home/cari/anaconda3/share/gdal'.
+2020-03-27 12:31:31,878 [14253] DEBUG    fiona._env:281: [JupyterRequire] PROJ_LIB found in environment: '/home/cari/anaconda3/share/proj'.
+2020-03-27 12:31:31,878 [14253] DEBUG    fiona._env:281: [JupyterRequire] Started GDALEnv <fiona._env.GDALEnv object at 0x7fbbc1d8cbd0>.
+2020-03-27 12:31:31,878 [14253] DEBUG    fiona.env:303: [JupyterRequire] Updated existing <fiona._env.GDALEnv object at 0x7fbbc1d8cbd0> with options {}
+2020-03-27 12:31:31,878 [14253] DEBUG    fiona.env:249: [JupyterRequire] Entered env context: <fiona.env.Env object at 0x7fbbb8b4d490>
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona.env:253: [JupyterRequire] Exiting env context: <fiona.env.Env object at 0x7fbbb8b4d490>
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona.env:316: [JupyterRequire] Cleared existing <fiona._env.GDALEnv object at 0x7fbbc1d8cbd0> options
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona._env:317: [JupyterRequire] Stopping GDALEnv <fiona._env.GDALEnv object at 0x7fbbc1d8cbd0>.
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona._env:317: [JupyterRequire] Error handler popped.
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona._env:317: [JupyterRequire] Stopped GDALEnv <fiona._env.GDALEnv object at 0x7fbbc1d8cbd0>.
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona.env:259: [JupyterRequire] Exiting outermost env
+2020-03-27 12:31:31,880 [14253] DEBUG    fiona.env:268: [JupyterRequire] Exited env context: <fiona.env.Env object at 0x7fbbb8b4d490>
+2020-03-27 12:31:31,986 [14253] DEBUG    fiona.env:224: [JupyterRequire] Entering env context: <fiona.env.Env object at 0x7fbbe8684cd0>
+2020-03-27 12:31:31,986 [14253] DEBUG    fiona.env:226: [JupyterRequire] Starting outermost env
+2020-03-27 12:31:31,986 [14253] DEBUG    fiona.env:276: [JupyterRequire] No GDAL environment exists
+2020-03-27 12:31:31,986 [14253] DEBUG    fiona.env:280: [JupyterRequire] New GDAL environment <fiona._env.GDALEnv object at 0x7fbbe8638310> created
+2020-03-27 12:31:31,986 [14253] DEBUG    fiona._env:281: [JupyterRequire] Logging error handler pushed.
+2020-03-27 12:31:31,987 [14253] DEBUG    fiona._env:281: [JupyterRequire] All drivers registered.
+2020-03-27 12:31:31,987 [14253] DEBUG    fiona._env:281: [JupyterRequire] GDAL_DATA found in environment: '/home/cari/anaconda3/share/gdal'.
+2020-03-27 12:31:31,987 [14253] DEBUG    fiona._env:281: [JupyterRequire] PROJ_LIB found in environment: '/home/cari/anaconda3/share/proj'.
+2020-03-27 12:31:31,987 [14253] DEBUG    fiona._env:281: [JupyterRequire] Started GDALEnv <fiona._env.GDALEnv object at 0x7fbbe8638310>.
+2020-03-27 12:31:31,987 [14253] DEBUG    fiona.env:303: [JupyterRequire] Updated existing <fiona._env.GDALEnv object at 0x7fbbe8638310> with options {}
+2020-03-27 12:31:31,987 [14253] DEBUG    fiona.env:249: [JupyterRequire] Entered env context: <fiona.env.Env object at 0x7fbbe8684cd0>
+2020-03-27 12:31:32,018 [14253] DEBUG    fiona.ogrext:207: [JupyterRequire] Got coordinate system
+2020-03-27 12:31:32,018 [14253] DEBUG    fiona.ogrext:214: [JupyterRequire] Got coordinate system
+2020-03-27 12:31:32,018 [14253] DEBUG    fiona.ogrext:251: [JupyterRequire] Index: 0
+2020-03-27 12:31:32,049 [14253] DEBUG    fiona.collection:440: [JupyterRequire] Flushed buffer
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona.collection:442: [JupyterRequire] Stopped session
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona.env:253: [JupyterRequire] Exiting env context: <fiona.env.Env object at 0x7fbbe8684cd0>
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona.env:316: [JupyterRequire] Cleared existing <fiona._env.GDALEnv object at 0x7fbbe8638310> options
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona._env:317: [JupyterRequire] Stopping GDALEnv <fiona._env.GDALEnv object at 0x7fbbe8638310>.
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona._env:317: [JupyterRequire] Error handler popped.
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona._env:317: [JupyterRequire] Stopped GDALEnv <fiona._env.GDALEnv object at 0x7fbbe8638310>.
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona.env:259: [JupyterRequire] Exiting outermost env
+2020-03-27 12:31:32,050 [14253] DEBUG    fiona.env:268: [JupyterRequire] Exited env context: <fiona.env.Env object at 0x7fbbe8684cd0>
+2020-03-27 12:31:33,151 [14253] INFO     numexpr.utils:141: [JupyterRequire] NumExpr defaulting to 8 threads.
+2020-03-27 14:50:50,545 [17650] DEBUG    root:77: [JupyterRequire] Loading Jupyter Require extension.
+2020-03-27 14:50:50,545 [17650] DEBUG    root:95: [JupyterRequire] Initializing comms.
+2020-03-27 14:50:50,546 [17650] INFO     root:204: [JupyterRequire] Initializing comms.
+2020-03-27 14:51:11,968 [17650] DEBUG    shapely.geos:32: [JupyterRequire] Trying `CDLL(/home/cari/anaconda3/lib/libgeos_c.so.1)`
+2020-03-27 14:51:11,972 [17650] DEBUG    shapely.geos:49: [JupyterRequire] Library path: '/home/cari/anaconda3/lib/libgeos_c.so.1'
+2020-03-27 14:51:11,972 [17650] DEBUG    shapely.geos:50: [JupyterRequire] DLL: <CDLL '/home/cari/anaconda3/lib/libgeos_c.so.1', handle 561565180b90 at 0x7f5860d22810>
+2020-03-27 14:51:11,979 [17650] DEBUG    shapely.geos:32: [JupyterRequire] Trying `CDLL(libc.so.6)`
+2020-03-27 14:51:11,979 [17650] DEBUG    shapely.geos:49: [JupyterRequire] Library path: 'libc.so.6'
+2020-03-27 14:51:11,980 [17650] DEBUG    shapely.geos:50: [JupyterRequire] DLL: <CDLL 'libc.so.6', handle 7f58692cc4f0 at 0x7f583a6d2290>
+2020-03-27 14:51:12,093 [17650] DEBUG    fiona.env:224: [JupyterRequire] Entering env context: <fiona.env.Env object at 0x7f5865c72050>
+2020-03-27 14:51:12,093 [17650] DEBUG    fiona.env:226: [JupyterRequire] Starting outermost env
+2020-03-27 14:51:12,093 [17650] DEBUG    fiona.env:276: [JupyterRequire] No GDAL environment exists
+2020-03-27 14:51:12,093 [17650] DEBUG    fiona.env:280: [JupyterRequire] New GDAL environment <fiona._env.GDALEnv object at 0x7f583a330710> created
+2020-03-27 14:51:12,093 [17650] DEBUG    fiona._env:281: [JupyterRequire] Logging error handler pushed.
+2020-03-27 14:51:12,096 [17650] DEBUG    fiona._env:281: [JupyterRequire] All drivers registered.
+2020-03-27 14:51:12,096 [17650] DEBUG    fiona._env:281: [JupyterRequire] GDAL_DATA found in environment: '/home/cari/anaconda3/share/gdal'.
+2020-03-27 14:51:12,096 [17650] DEBUG    fiona._env:281: [JupyterRequire] PROJ_LIB found in environment: '/home/cari/anaconda3/share/proj'.
+2020-03-27 14:51:12,096 [17650] DEBUG    fiona._env:281: [JupyterRequire] Started GDALEnv <fiona._env.GDALEnv object at 0x7f583a330710>.
+2020-03-27 14:51:12,096 [17650] DEBUG    fiona.env:303: [JupyterRequire] Updated existing <fiona._env.GDALEnv object at 0x7f583a330710> with options {}
+2020-03-27 14:51:12,097 [17650] DEBUG    fiona.env:249: [JupyterRequire] Entered env context: <fiona.env.Env object at 0x7f5865c72050>
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona.env:253: [JupyterRequire] Exiting env context: <fiona.env.Env object at 0x7f5865c72050>
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona.env:316: [JupyterRequire] Cleared existing <fiona._env.GDALEnv object at 0x7f583a330710> options
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona._env:317: [JupyterRequire] Stopping GDALEnv <fiona._env.GDALEnv object at 0x7f583a330710>.
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona._env:317: [JupyterRequire] Error handler popped.
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona._env:317: [JupyterRequire] Stopped GDALEnv <fiona._env.GDALEnv object at 0x7f583a330710>.
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona.env:259: [JupyterRequire] Exiting outermost env
+2020-03-27 14:51:12,099 [17650] DEBUG    fiona.env:268: [JupyterRequire] Exited env context: <fiona.env.Env object at 0x7f5865c72050>
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona.env:224: [JupyterRequire] Entering env context: <fiona.env.Env object at 0x7f5865c8b810>
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona.env:226: [JupyterRequire] Starting outermost env
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona.env:276: [JupyterRequire] No GDAL environment exists
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona.env:280: [JupyterRequire] New GDAL environment <fiona._env.GDALEnv object at 0x7f5860cb2c50> created
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona._env:281: [JupyterRequire] Logging error handler pushed.
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona._env:281: [JupyterRequire] All drivers registered.
+2020-03-27 14:51:12,220 [17650] DEBUG    fiona._env:281: [JupyterRequire] GDAL_DATA found in environment: '/home/cari/anaconda3/share/gdal'.
+2020-03-27 14:51:12,221 [17650] DEBUG    fiona._env:281: [JupyterRequire] PROJ_LIB found in environment: '/home/cari/anaconda3/share/proj'.
+2020-03-27 14:51:12,221 [17650] DEBUG    fiona._env:281: [JupyterRequire] Started GDALEnv <fiona._env.GDALEnv object at 0x7f5860cb2c50>.
+2020-03-27 14:51:12,221 [17650] DEBUG    fiona.env:303: [JupyterRequire] Updated existing <fiona._env.GDALEnv object at 0x7f5860cb2c50> with options {}
+2020-03-27 14:51:12,221 [17650] DEBUG    fiona.env:249: [JupyterRequire] Entered env context: <fiona.env.Env object at 0x7f5865c8b810>
+2020-03-27 14:51:12,255 [17650] DEBUG    fiona.ogrext:207: [JupyterRequire] Got coordinate system
+2020-03-27 14:51:12,255 [17650] DEBUG    fiona.ogrext:214: [JupyterRequire] Got coordinate system
+2020-03-27 14:51:12,255 [17650] DEBUG    fiona.ogrext:251: [JupyterRequire] Index: 0
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona.collection:440: [JupyterRequire] Flushed buffer
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona.collection:442: [JupyterRequire] Stopped session
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona.env:253: [JupyterRequire] Exiting env context: <fiona.env.Env object at 0x7f5865c8b810>
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona.env:316: [JupyterRequire] Cleared existing <fiona._env.GDALEnv object at 0x7f5860cb2c50> options
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona._env:317: [JupyterRequire] Stopping GDALEnv <fiona._env.GDALEnv object at 0x7f5860cb2c50>.
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona._env:317: [JupyterRequire] Error handler popped.
+2020-03-27 14:51:12,294 [17650] DEBUG    fiona._env:317: [JupyterRequire] Stopped GDALEnv <fiona._env.GDALEnv object at 0x7f5860cb2c50>.
+2020-03-27 14:51:12,295 [17650] DEBUG    fiona.env:259: [JupyterRequire] Exiting outermost env
+2020-03-27 14:51:12,295 [17650] DEBUG    fiona.env:268: [JupyterRequire] Exited env context: <fiona.env.Env object at 0x7f5865c8b810>
+2020-03-27 14:51:13,886 [17650] INFO     numexpr.utils:141: [JupyterRequire] NumExpr defaulting to 8 threads.
