@@ -10,9 +10,9 @@ human behavior impact the city's air quality? My guess is: for the better.
 The app created through this repository displays a time lapse of concentrations of common pollutants that human activities contribute to through automobiles and industrial processes. These include Nitrogen Dioxide, Ozone, PM 2.5, NOx and Black Carbon.
                             
 
-### Usage
+## Usage
 
-To run the app locally:
+#### To run the app locally:
 
 - Download/clone this repository
 - Navigate to this repository via the command line
@@ -22,7 +22,21 @@ To run the app locally:
 python app.py
 ```
 
-To create/update the .gif's locally:
+**app.py Dependencies:**
+
+- dash==1.4.1
+- pandas==1.0.1
+- altair==4.0.1
+- numpy==1.18.1
+- vega_datasets==0.7.0
+- geopandas==0.6.1
+- gunicorn==20.0.0
+- dash-bootstrap-components==0.7.2
+- dash-gif-component==1.0.2
+- dash-html-components==1.0.1
+- dash-core-components==1.3.1
+
+#### To create/update the .gif's locally:
 
 - Download/clone this repository
 - Navigate to the **scripts folder** of this repository via the command line
@@ -31,6 +45,17 @@ To create/update the .gif's locally:
 ```
 python run_all.py
 ```
+
+**run_all.py Dependencies:**
+
+- geopandas==0.6.1
+- pandas==1.0.1
+- numpy==1.18.1
+- altair==4.0.1
+- Shapely==1.6.4.post2
+- scipy==1.4.1
+- requests==2.22.0
+- imageio==2.6.1
 
 The `scripts/run_all.py` script retrives data from the CA air resources board site (https://www.arb.ca.gov) for each of 4 pollutants: 
 NO2 [NO2], Black Carbon [BC], PM 2.5 [PM25HR], Ozone [OZONE] and NOx [NOX]. The script performs a linear interpolation over the region
@@ -48,7 +73,9 @@ Outputs:
 - `data/wrangled/*_line_plot.csv` ; a data file for each pollutant `*` to create the app's line plot
 - `data/wrangled/sites_data.csv`; a data file with geographical information on sites
 
-### Vignette
+
+
+## Vignette
 
 In the `scripts` folder, there is also a [vignette](https://github.com/cgostic/sf_air-quality_covid19/blob/master/scripts/interpolate_pm25_vignette.ipynb) that walks through the process of data wrangling and spatial interpolation
 for a single pollutant (PM 2.5) that is executed to create the outputs seen on the app.
