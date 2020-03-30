@@ -38,8 +38,6 @@ Code resources
 import geopandas as gpd
 import pandas as pd
 import altair as alt
-import matplotlib.pyplot as plt
-import json
 from shapely.geometry import Polygon, Point
 from scipy.interpolate import griddata
 import numpy as np
