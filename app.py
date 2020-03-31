@@ -176,7 +176,7 @@ app.layout = html.Div([
                                 """
                                 ###### Already, we see a **decrease in mean pollutant levels** for everything but Ozone (which is highly
                                 ###### influenced by weather conditions) as well as a **collapse of the weekly cycle** that coincides with high
-                                ###### workday traffic from Tuesday - Thursday""")
+                                ###### workday traffic.""")
                         ],
                     style={'width':'50%'}),
                 # Tabs
