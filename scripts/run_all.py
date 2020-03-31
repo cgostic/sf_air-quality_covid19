@@ -73,19 +73,27 @@ today = date.today()
 # Available pollutants
 pollutants = ['PM25HR', 'OZONE', 'BC', 'NOX', 'NO2']
 
-# Remove existing image files
-for param in pollutants:
-    os.system('rm -rf ../assets/img/'+param+'/*')
+# # Remove existing image files
+# for param in pollutants:
+#     os.system('rm -rf ../assets/img/'+param+'/*')
+
+# Set URL parameters
+first_year = 2020
+first_mon = 2
+first_day = 1
+first_date = '{}-{}-{}'.format(first_year, first_mon, first_day) # yyyy-m-d 
+units = {'OZONE': '007', 'BC': '001', 'NOX': '007', 'PM25HR': '001', 'NO2':'007'}
+year = '2020'
+mon = str(today.month)
+day = str(today.day)
+basin = 'SFB-San+Francisco+Bay'
+rows = {'OZONE': '20', 'BC': '6', 'NOX': '18', 'PM25HR': '17', 'NO2': '18'}
+
+# Determine March 1st offset from first_date
+mar1_offset = int((date(2020,3,1)-date(first_year,first_mon,first_day)).days)
 
 for param in pollutants:
-    # Set parameters
-    first_date = '2020-2-15' # yyyy-m-d 
-    units = {'OZONE': '007', 'BC': '001', 'NOX': '007', 'PM25HR': '001', 'NO2':'007'}
-    year = '2020'
-    mon = str(today.month)
-    day = str(today.day)
-    basin = 'SFB-San+Francisco+Bay'
-    rows = {'OZONE': '20', 'BC': '6', 'NOX': '18', 'PM25HR': '17', 'NO2': '18'}
+    # Set filename
     fname = param+'_'+year+'-'+mon+'-'+day
 
     url = 'https://www.arb.ca.gov/aqmis2/display.php?sitelist=All&\
@@ -157,7 +165,7 @@ rows='+rows[param]
                             'long': x_mesh.flatten()})
     date_cols = aq_gdf.columns[5:]
     print('    Interpolating across all dates')
-    for date in date_cols[15:]:
+    for date in date_cols[mar1_offset:]:
         # Linear interpolation across grid
         pm_interp = griddata((aq_gdf['longitude'], 
                             aq_gdf['latitude']), 
@@ -198,9 +206,6 @@ rows='+rows[param]
                     np.mean(line_df.query('date > "2020-03-16"')[param]), np.nan)
     line_df.to_csv('../data/wrangled/'+param+'_line_plot.csv')
 
-    # CREATE GIFS of AQ values across bay area
-    #print(interp_buffer.loc[15,['date','date_int']])
-
     # create basemap
     base_map = (alt.Chart(shape_gdf).mark_geoshape(
         stroke='black',
@@ -226,7 +231,7 @@ rows='+rows[param]
                                     "+units_dict[param], 
                                 format = '0.5')]
                             ))
-        if date < 31:
+        if date < mar1_offset+16:
             return ((interpolated_plot + base_map)
                 .properties(
                     title = "Bay Area Avg.{} ({}): {}".format(
@@ -261,23 +266,25 @@ rows='+rows[param]
     filenames = []
     # Create gif starting at march 1st
     print('    Creating images')
-    for i in range(15, max(interp_buffer['date_int'])+1):
-        filename = '../assets/'+param+'_'+str(i)+'.png'
+
+    for i in range(mar1_offset, max(interp_buffer['date_int'])+1):
+        # collect file names of images
+        filename = '../assets/img/'+param+'/'+param+'_'+str(i)+'.png'
         filenames.append(filename)
-        plot_aq(i).save(filename)
+        # If image doesn't exist for certain date, create it
+        if not os.path.exists(filename):
+            print("     Creating image for"+filename)
+            plot_aq(i).save(filename)
     # Merge images into gif
     print('    Creating gif')
     with imageio.get_writer('../assets/'+param+'.gif', 
                             mode='I', 
-                            duration = .6, 
+                            duration = .4, 
                             loop = 1) as writer:
         for filename in filenames:
             image = imageio.imread(filename)
             writer.append_data(image)
-    # Move all but still (first in series) to img folder
-    for png in filenames:
-        if png != '../assets/'+param+'_15.png':
-            shutil.move(png, '../assets/img/'+param)
+    # Copy still (first in series) to img folder (to render in app)
+    shutil.copy('../assets/img/'+param+'/'+param+'_'+str(mar1_offset)+'.png',
+                '../assets/'+param+'_'+str(mar1_offset)+'.png')
 print('All finished!!!')
-
-

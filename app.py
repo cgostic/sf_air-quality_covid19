@@ -112,7 +112,7 @@ def plot_line(param='NOX'):
 def render_gif(param='NOX'):
     gp = Gif.GifPlayer(
             gif='assets/'+param+'.gif',
-            still='assets/'+param+'_15.png'
+            still='assets/'+param+'_29.png'
                  )
     return gp
 
@@ -148,7 +148,7 @@ app.layout = html.Div([
                                     tabs to the right."""),
                                 html.P(
                                     """The change in mean pollutant values from the month leading up 
-                                    to the shelter in place ordinance (Feb 15th - March 16th) to the
+                                    to the shelter in place ordinance (Feb 1st - March 16th) to the
                                     period after the shelter in place ordinance is displayed in the
                                     line-plot below.""")]),
                             html.Div(
@@ -172,12 +172,11 @@ app.layout = html.Div([
                                                     )
                                     ),
                             ]),
-                        html.P(
+                        dcc.Markdown(
                                 """
-                                Data is retrieved daily from the CA air resources board
-                                site (https://www.arb.ca.gov), and a linear interpolation
-                                is calculated over the region bounded by the air quality
-                                sensors in the Bay Area to create the time lapse.""")
+                                ###### Already, we see a **decrease in mean pollutant levels** for everything but Ozone (which is highly
+                                ###### influenced by weather conditions) as well as a **collapse of the weekly cycle** that coincides with high
+                                ###### workday traffic from Tuesday - Thursday""")
                         ],
                     style={'width':'50%'}),
                 # Tabs
@@ -236,6 +235,8 @@ app.layout = html.Div([
             """
             ###### Author: Cari Gostic" 
             ###### View the project Github Page [here]()
+            ###### _Data is retrieved daily from the CA air resources board site (https://www.arb.ca.gov), and a linear interpolation is calculated over the region bounded by the air quality sensors to create the time lapse._
+            ###### _View a vignette for PM 2.5 [here.](https://github.com/cgostic/sf_air-quality_covid19/blob/master/scripts/interpolate_pm25_vignette.ipynb)_
             # """)])
         ]
     )
