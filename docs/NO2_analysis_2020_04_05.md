@@ -342,7 +342,7 @@ data.frame(experiment = c("Pre weekday vs. Pre Weekend",
     ## 4  Pre Weekend vs. Post Weekend  0.0741              0.0029
 
 I’ll use the Bonferroni method to adjust the standard significant alpha
-value of 0.05 to 0.05/4 = 0.0125 based on the 5 comparisons computed on
+value of 0.05 to 0.05/4 = 0.0125 based on the 4 comparisons computed on
 the data set above. After this adjustment the only experiments with
 significant results are: the **Pre Weekday vs. Pre Weekend**, confirming
 that pre-pandemic average NO2 concentration is significantly higher

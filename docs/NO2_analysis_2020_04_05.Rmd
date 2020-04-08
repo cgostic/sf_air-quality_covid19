@@ -6,7 +6,7 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.width = 5, fig.height = 3, fig.align = "center")
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 suppressPackageStartupMessages(library(tidyverse, zoo))
 ```
 
@@ -232,7 +232,7 @@ data.frame(experiment = c("Pre weekday vs. Pre Weekend",
            difference_estimate = diff_est)
 ```
 
-I'll use the Bonferroni method to adjust the standard significant alpha value of 0.05 to 0.05/4 = 0.0125 based on the 5 comparisons computed on the data set above. After this adjustment the only experiments with significant results are: the **Pre Weekday vs. Pre Weekend**, confirming that pre-pandemic average NO2 concentration is significantly higher during the week than over the weekend, and **Pre Weekday vs. Post Weekday**, meaning that mean work-week NO2 concentration is significantly lower in the post-pandemic period.
+I'll use the Bonferroni method to adjust the standard significant alpha value of 0.05 to 0.05/4 = 0.0125 based on the 4 comparisons computed on the data set above. After this adjustment the only experiments with significant results are: the **Pre Weekday vs. Pre Weekend**, confirming that pre-pandemic average NO2 concentration is significantly higher during the week than over the weekend, and **Pre Weekday vs. Post Weekday**, meaning that mean work-week NO2 concentration is significantly lower in the post-pandemic period.
 
 These observations along with the non-significant results from the other three experiments indicate that, as I mentioned during my initial observations, the cyclical nature of the NO2 concentration time series is compressing in the post-pandemic period. Though minimum weekly values, still occurring on the weekends, remain unchanged, maximum weekly values, still occurring during the work-week, are no longer significantly different from weekend average concentration in the post-pandemic period.
 
