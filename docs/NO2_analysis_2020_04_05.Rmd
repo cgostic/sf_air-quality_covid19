@@ -2,9 +2,7 @@
 title: 'COVID-19 Air Quality: San Francisco'
 author: "Cari Gostic"
 date: "4/5/2020"
-output:
-  html_document:
-    df_print: paged
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
