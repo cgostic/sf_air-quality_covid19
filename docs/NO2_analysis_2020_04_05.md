@@ -3,43 +3,6 @@ COVID-19 Air Quality: San Francisco
 Cari Gostic
 4/5/2020
 
-``` r
-library(tidyverse)
-library(zoo)
-```
-
-    ## 
-    ## Attaching package: 'zoo'
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     as.Date, as.Date.numeric
-
-``` r
-library(lubridate)
-```
-
-    ## 
-    ## Attaching package: 'lubridate'
-
-    ## The following object is masked from 'package:base':
-    ## 
-    ##     date
-
-``` r
-library(forecast)
-```
-
-    ## Registered S3 method overwritten by 'quantmod':
-    ##   method            from
-    ##   as.zoo.data.frame zoo
-
-``` r
-library(broom)
-library(tseries)
-options(warn=-1)
-```
-
 ## Introduction
 
 San Francisco was the first city in the US to declare a shelter-in-place
@@ -97,6 +60,16 @@ quality monitoring app\] to view a map of these sensors.
 First, I’ll read in the data and remove NA values. There are 8 NA values
 out of 2166 in this time series of NO2 measurements from January 1st
 April 5th, 2020.
+
+``` r
+library(tidyverse)
+library(zoo)
+library(lubridate)
+library(forecast)
+library(broom)
+library(tseries)
+options(warn=-1)
+```
 
 ``` r
 aq_2020 <- read_csv('data/NO2_PICKDATA_2020-4-5.csv')
@@ -307,21 +280,26 @@ ggsubseriesplot(ts_post,
 
 **Experiments:**
 
-  - **Pre weekday vs. Pre Weekend:** Compares average NO2 concentration
-    during the pre-pandemic work-week to average NO2 concentration
-    during the pre-pandemic weekend.
-  - **Post weekday vs. Post Weekend:** Compares average NO2
-    concentration during the post-pandemic work-week to average NO2
-    concentration during the post-pandemic weekend.
-  - **Pre Weekday vs. Post Weekday:** Compares average NO2 concentration
-    during the pre-pandemic work-week to average NO2 concentration
-    during the post-pandemic work-week.
-  - **Pre Weekend vs. Post Weekend:** Compares average NO2 concentration
-    during the pre-pandemic weekend to average NO2 concentration during
-    the post-pandemic weekend.
-  - **Pre Weekend vs. Post Weekday:** Compares average NO2 concentration
-    during the pre-pandemic weekend to average NO2 concentration during
-    the post-pandemic work-week.
+  - **Pre weekday vs. Pre Weekend**
+      - Compares average NO2 concentration during the pre-pandemic
+        work-week to average NO2 concentration during the pre-pandemic
+        weekend.
+  - **Post weekday vs. Post Weekend**
+      - Compares average NO2 concentration during the post-pandemic
+        work-week to average NO2 concentration during the post-pandemic
+        weekend.
+  - **Pre Weekday vs. Post Weekday**
+      - Compares average NO2 concentration during the pre-pandemic
+        work-week to average NO2 concentration during the post-pandemic
+        work-week.
+  - **Pre Weekend vs. Post Weekend**
+      - Compares average NO2 concentration during the pre-pandemic
+        weekend to average NO2 concentration during the post-pandemic
+        weekend.
+  - **Pre Weekend vs. Post Weekday**
+      - Compares average NO2 concentration during the pre-pandemic
+        weekend to average NO2 concentration during the post-pandemic
+        work-week.
 
 <!-- end list -->
 
