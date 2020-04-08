@@ -6,7 +6,11 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 5, fig.height = 3, fig.align = "center")
+suppressPackageStartupMessages(library(tidyverse, zoo))
+```
+
+```{r}
 library(tidyverse)
 library(zoo)
 library(lubridate)
@@ -71,14 +75,13 @@ aq_daily <- aq %>% group_by(date) %>% summarize(daily_avg = mean(value))
 aq_daily_zoo <- zoo(aq_daily$daily_avg, strptime(aq_daily$date, format = '%Y-%m-%d'))
 # Convert to time series (weekly frequency [7], starting on a Wednesday [4])
 aq_ts <- ts(aq_daily_zoo, start = c(1,4), freq = 7)
-print(aq_ts, calendar = TRUE)
 ```
 
 ### Exploratory Data Analysis
 
 I'll first do an exploratory analysis using a seasonal decomposition of the time series.
 
-```{r, fig.width = 10}
+```{r, fig.width = 10, fig.height = 6}
 stl_aq <- stl(aq_ts, 'periodic', t.window = 21)
 autoplot(stl_aq, main = "Decomposition of NO2 concentration time series")
 ```

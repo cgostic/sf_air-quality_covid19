@@ -3,6 +3,43 @@ COVID-19 Air Quality: San Francisco
 Cari Gostic
 4/5/2020
 
+``` r
+library(tidyverse)
+library(zoo)
+```
+
+    ## 
+    ## Attaching package: 'zoo'
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     as.Date, as.Date.numeric
+
+``` r
+library(lubridate)
+```
+
+    ## 
+    ## Attaching package: 'lubridate'
+
+    ## The following object is masked from 'package:base':
+    ## 
+    ##     date
+
+``` r
+library(forecast)
+```
+
+    ## Registered S3 method overwritten by 'quantmod':
+    ##   method            from
+    ##   as.zoo.data.frame zoo
+
+``` r
+library(broom)
+library(tseries)
+options(warn=-1)
+```
+
 ## Introduction
 
 San Francisco was the first city in the US to declare a shelter-in-place
@@ -96,41 +133,7 @@ aq_daily <- aq %>% group_by(date) %>% summarize(daily_avg = mean(value))
 aq_daily_zoo <- zoo(aq_daily$daily_avg, strptime(aq_daily$date, format = '%Y-%m-%d'))
 # Convert to time series (weekly frequency [7], starting on a Wednesday [4])
 aq_ts <- ts(aq_daily_zoo, start = c(1,4), freq = 7)
-print(aq_ts, calendar = TRUE)
 ```
-
-    ##             p1          p2          p3          p4          p5          p6
-    ## 1                                      0.010273913 0.023531818 0.023331818
-    ## 2  0.010656522 0.023191304 0.013834783 0.012100000 0.012482609 0.013709091
-    ## 3  0.009443478 0.010304348 0.009069565 0.015065217 0.011178261 0.019500000
-    ## 4  0.013352174 0.015830435 0.010047826 0.019704348 0.020833333 0.013395455
-    ## 5  0.004243478 0.010540909 0.010330435 0.015713043 0.014613043 0.021777273
-    ## 6  0.004482609 0.006256522 0.012865217 0.020517391 0.020139130 0.016527273
-    ## 7  0.004365217 0.017056522 0.021365217 0.020521739 0.004591304 0.010845455
-    ## 8  0.006491304 0.015278261 0.017708696 0.014773913 0.024286957 0.019800000
-    ## 9  0.004969565 0.016343478 0.023678261 0.022178261 0.027473913 0.019677273
-    ## 10 0.006026087 0.009252174 0.017880952 0.015013043 0.006940909 0.004363636
-    ## 11 0.008052174 0.016860870 0.011923810 0.010708696 0.011273913 0.005609524
-    ## 12 0.003091304 0.009460870 0.008152174 0.006430435 0.009265217 0.009963636
-    ## 13 0.010073913 0.004213043 0.004369565 0.007417391 0.007643478 0.004045455
-    ## 14 0.004269565 0.005473913 0.003926087 0.005052174 0.008904348 0.005822727
-    ## 15 0.002186957                                                            
-    ##             p7
-    ## 1  0.012230435
-    ## 2  0.008913043
-    ## 3  0.011556522
-    ## 4  0.007973913
-    ## 5  0.014078261
-    ## 6  0.008478261
-    ## 7  0.008478261
-    ## 8  0.007160870
-    ## 9  0.002578947
-    ## 10 0.003908696
-    ## 11 0.003108696
-    ## 12 0.010973913
-    ## 13 0.004847826
-    ## 14 0.001600000
-    ## 15
 
 ### Exploratory Data Analysis
 
@@ -142,7 +145,7 @@ stl_aq <- stl(aq_ts, 'periodic', t.window = 21)
 autoplot(stl_aq, main = "Decomposition of NO2 concentration time series")
 ```
 
-![](NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+<img src="NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 The trend component is calculated using the loess method over a 3-week
 window. There is a clear downward trend in nitrogen dioxide
@@ -223,7 +226,7 @@ lj_plot <- function(model) {
 lj_plot(pre_model)
 ```
 
-![](NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+<img src="NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
 ### Are the post-pandemic values extreme?
 
@@ -247,7 +250,7 @@ ggplot(df_plot) +
        x = 'Date')
 ```
 
-![](NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+<img src="NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
 The predicted 95% confidence interval captures the true data for the
 entire forecast, indicating that the true data is not wildly outside the
@@ -291,7 +294,7 @@ ggsubseriesplot(ts_pre,
   ylim(0,0.03)
 ```
 
-![](NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+<img src="NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 ``` r
 ggsubseriesplot(ts_post, 
@@ -300,7 +303,7 @@ ggsubseriesplot(ts_post,
   ylim(0,0.03)
 ```
 
-![](NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+<img src="NO2_analysis_2020_04_05_files/figure-gfm/unnamed-chunk-11-2.png" style="display: block; margin: auto;" />
 
 **Experiments:**
 
