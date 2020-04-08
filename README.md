@@ -4,6 +4,8 @@
 
 ### View the [SF Bay Air Quality App](https://sf-aq-covid19.herokuapp.com/)
 
+### Read the [Analysis Report](https://github.com/cgostic/sf_air-quality_covid19/blob/master/docs/NO2_analysis_2020_04_05.md)
+
 On March 17th, San Francisco instituted a Shelter in Place ordinance in response to COVID-19. How will this drastic shift in
 human behavior impact the city's air quality? My guess is: for the better.
 
