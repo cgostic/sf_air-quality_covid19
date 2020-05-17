@@ -234,9 +234,10 @@ app.layout = html.Div([
             dcc.Markdown(
             """
             ###### Author: Cari Gostic" 
-            ###### View the project Github Page [here]()
-            ###### _Data is retrieved daily from the CA air resources board site (https://www.arb.ca.gov), and a linear interpolation is calculated over the region bounded by the air quality sensors to create the time lapse._
+            ###### View the report [here](https://github.com/cgostic/sf_air-quality_covid19/blob/master/docs/NO2_analysis_2020_04_05.md)
+            ###### View the project Github Page [here](https://github.com/cgostic/sf_air-quality_covid19)
             ###### _View a vignette for PM 2.5 [here.](https://github.com/cgostic/sf_air-quality_covid19/blob/master/scripts/interpolate_pm25_vignette.ipynb)_
+            ###### _Data is retrieved daily from the CA air resources board site (https://www.arb.ca.gov), and a linear interpolation is calculated over the region bounded by the air quality sensors to create the time lapse._
             # """)])
         ]
     )
