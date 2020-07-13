@@ -54,8 +54,9 @@ All data comes from the [California Air Resources Board Open Data
 Portal](https://www.arb.ca.gov/aqmis2/aqdselect.php)
 
 The data set consists of hourly NO2 measurements from various sites in
-the Bay Area. All measurements are in ppm. Visit the accompanying \[air
-quality monitoring app\] to view a map of these sensors.
+the Bay Area. All measurements are in ppm. Visit the accompanying [air
+quality monitoring app](https://sf-aq-covid19.herokuapp.com/) to view a
+map of these sensors.
 
 First, I’ll read in the data and remove NA values. There are 8 NA values
 out of 2166 in this time series of NO2 measurements from January 1st
