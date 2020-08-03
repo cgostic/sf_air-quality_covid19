@@ -79,7 +79,7 @@ Outputs:
 
 ## Vignette
 
-In the `scripts` folder, there is also a [vignette](https://github.com/cgostic/sf_air-quality_covid19/blob/master/docs/interpolate_pm25_vignette.ipynb) that walks through the process of data wrangling and spatial interpolation
+In the `docs` folder, there is also a [vignette](https://github.com/cgostic/sf_air-quality_covid19/blob/master/docs/interpolate_pm25_vignette.ipynb) that walks through the process of data wrangling and spatial interpolation
 for a single pollutant (PM 2.5) that is executed to create the outputs seen on the app.
 
 
